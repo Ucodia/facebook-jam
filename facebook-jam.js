@@ -5,6 +5,8 @@
 		return;
 
 	var jammed = {};
+	var lastHeight = 0;
+	var updateCount = 0;
 
 	chrome.runtime.sendMessage({ topic: 'showPageAction' });
 
@@ -17,6 +19,14 @@
 	}
 
 	function updateJam() {
+		var newHeight = $timeline.height();
+		if (lastHeight >= newHeight)
+			return;
+
+		lastHeight = newHeight;
+		updateCount++;
+
+		// find new stories
 		var $stories = $timeline.find("div[data-testid='fbfeed_story']").filter(function (i) {
 			var $story = $(this);
 			var d = $story.data();
