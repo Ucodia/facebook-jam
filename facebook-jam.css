@@ -2,3 +2,8 @@
 	visibility: collapse;
 	height: 0;
 }
+
+.facebook-jam-expander {
+	position: absolute;
+	right: 30px;
+}

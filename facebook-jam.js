@@ -33,6 +33,16 @@
 
 			var $content = $story.find("._3x-2").first();
 			$content.addClass("facebook-jam-collapsed");
+
+			var $header = $story.find("._1dwg").first();
+			$header.prepend("<div class='facebook-jam-expander'><a>Show</a></div>");
+
+			// TODO: get the click event to work on the link instead of the header
+			$header.click(function () {
+				$content.toggleClass("facebook-jam-collapsed");
+				var collapsed = $content.hasClass("facebook-jam-collapsed");
+				$(this).find(".facebook-jam-expander a").text(collapsed ? "Show" : "Hide");
+			});
 		});
 
 		subscribe();
