@@ -1,0 +1,30 @@
+{
+	"manifest_version": 2,
+
+	"name": "Facebook Jam",
+	"description": "Filter your Facebook timeline to the essential.",
+	"version": "0.1",
+
+	"icons": { "16": "img/facebook-jam_16.png",
+           	   "48": "img/facebook-jam_48.png",
+          	   "128": "img/facebook-jam_128.png" },
+
+	"page_action": {
+        "default_icon": "img/facebook-jam_16.png"
+    },
+
+	"background": {
+		"scripts": [ "background.js" ]
+	},
+
+	"content_scripts": [
+		{
+			"matches": ["https://www.facebook.com/"],
+			"js": [ "lib/jquery.min.js", "facebook-jam.js" ],
+			"css" : ["facebook-jam.css"],
+			"run_at": "document_end"
+		}
+  	],
+
+	"permissions": [ "*://*/*", "storage" ]
+}
