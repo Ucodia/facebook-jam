@@ -11,6 +11,7 @@
 	chrome.runtime.sendMessage({ topic: 'showPageAction' });
 
 	function subscribe() {
+		// TODO: find a better hook to trigger refresh
 		$timeline.bind("DOMSubtreeModified", updateJam);
 	}
 
@@ -31,8 +32,8 @@
 			var $story = $(this);
 			var d = $story.data();
 			return d.hasOwnProperty('timestamp') &&
-						 $story.find("._5mxv").length > 0 &&
-						 jammed.hasOwnProperty(d.dedupekey) === false;
+				   $story.find("._5mxv").length > 0 &&
+				   jammed.hasOwnProperty(d.dedupekey) === false;
 		});
 
 		unsubscribe();
@@ -45,14 +46,14 @@
 			$content.addClass("facebook-jam-collapsed");
 
 			var $header = $story.find("._1dwg").first();
-			$header.prepend("<div class='facebook-jam-expander'><a>Show</a></div>");
+			var $link = $("<a>Show</a>");
+			$header.prepend($("<div class='facebook-jam-expander'></div>").append($link));
 
-			// TODO: get the click event to work on the link instead of the header
-			$header.click(function () {
+			$link.click(function () {
 				$content.toggleClass("facebook-jam-collapsed");
 				var collapsed = $content.hasClass("facebook-jam-collapsed");
-				$(this).find(".facebook-jam-expander a").text(collapsed ? "Show" : "Hide");
-			});
+				$link.text(collapsed ? "Show" : "Hide");
+			})
 		});
 
 		subscribe();
